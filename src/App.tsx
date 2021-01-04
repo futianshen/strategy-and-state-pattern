@@ -4,11 +4,8 @@ import EditorModal from "./modal/EditorModal";
 import "./others/index.css";
 import RoleButton from "./others/RoleButton";
 
-
-
-function App() {
+const App: React.FC = () => {
   const [content, setContent] = useState("我是需要被編輯的內容");
-
   return (
     <div className="flex flex-col justify-center items-center h-screen">
       <RoleButton className="mb-3" />
@@ -18,6 +15,6 @@ function App() {
       </EditorModal>
     </div>
   );
-}
+};
 
 export default App;

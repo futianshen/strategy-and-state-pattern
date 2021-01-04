@@ -49,7 +49,9 @@ const CheckState: React.FC<StateProps> = (props) => {
         <Alert type="info" message={props.content} />
       </div>
       <ButtonGroup>
-        <Button onClick={() => props.setState("published")} className="mr-2">通過</Button>
+        <Button onClick={() => props.setState("published")} className="mr-2">
+          通過
+        </Button>
         <Button onClick={() => props.setState("draft")} danger>
           不通過
         </Button>
@@ -65,7 +67,9 @@ const PublishState: React.FC<StateProps> = (props) => {
         <Alert type="success" message={props.content} />
       </div>
       <ButtonGroup>
-        <Button onClick={() => props.setState("archived")} className="mr-2">封存</Button>
+        <Button onClick={() => props.setState("archived")} className="mr-2">
+          封存
+        </Button>
         <Button onClick={() => props.setState("draft")} danger>
           取消發布
         </Button>
@@ -81,7 +85,9 @@ const ArchivedState: React.FC<StateProps> = (props) => {
         <Alert type="warning" message={props.content} />
       </div>
       <ButtonGroup>
-        <Button onClick={() => props.setState("published")} className="mr-2">重新發布</Button>
+        <Button onClick={() => props.setState("published")} className="mr-2">
+          重新發布
+        </Button>
         <Button onClick={() => props.setState("draft")} danger>
           重新修改
         </Button>
@@ -91,10 +97,9 @@ const ArchivedState: React.FC<StateProps> = (props) => {
 };
 
 // State Pattern
-const Editor: React.FC<PostProps> = (props) => {
+const EditorContext: React.FC<PostProps> = (props) => {
   const [state, setState] = useState<PostState>("draft");
-
-  const StateSwitcher = {
+  const stateConverter = {
     draft: DraftState,
     check: CheckState,
     published: PublishState,
@@ -102,11 +107,15 @@ const Editor: React.FC<PostProps> = (props) => {
     // error: ErrorState
   };
 
-  return StateSwitcher[state]({
-    content: props.content,
-    setContent: props.setContent,
-    setState,
-  });
+  const State = stateConverter[state];
+
+  return (
+    <State
+      content={props.content}
+      setContent={props.setContent}
+      setState={setState}
+    />
+  );
 };
 
-export default Editor;
+export default EditorContext;

@@ -2,12 +2,12 @@ import { Modal } from "antd";
 import { ModalProps } from "antd/lib/modal";
 import React, { useState } from "react";
 
-type GeneralModalProps = ModalProps & {
-  renderTrigger: (onOpen: () => void) => React.ReactNode;
+type ModalContextProps = ModalProps & {
+  renderTriggerStrategy: (onOpen: () => void) => React.ReactNode;
 };
 
-const GeneralModal: React.FC<GeneralModalProps> = ({
-  renderTrigger,
+const ModalContext: React.FC<ModalContextProps> = ({
+  renderTriggerStrategy,
   children,
   ...modalProps
 }) => {
@@ -16,7 +16,7 @@ const GeneralModal: React.FC<GeneralModalProps> = ({
   return (
     <>
       {/* Strategy Pattern */}
-      {renderTrigger(() => setVisible(true))}
+      {renderTriggerStrategy(() => setVisible(true))}
 
       <Modal
         visible={visible}
@@ -30,4 +30,4 @@ const GeneralModal: React.FC<GeneralModalProps> = ({
   );
 };
 
-export default GeneralModal;
+export default ModalContext;

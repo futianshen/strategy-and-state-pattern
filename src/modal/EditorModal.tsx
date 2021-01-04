@@ -6,7 +6,7 @@ import {
 import { Button } from "antd";
 import ButtonGroup from "antd/lib/button/button-group";
 import React from "react";
-import GeneralModal from "./GeneralModal";
+import Modal from "./Modal";
 
 const editorStrategy: (props: {
   hasContent: boolean;
@@ -38,34 +38,14 @@ const EditorModal: React.FC<{
   onClear: () => void;
 }> = ({ hasContent, onClear, children }) => {
   return (
-    <GeneralModal
+    <Modal
       centered
-      renderTrigger={(onOpen) =>
-        editorStrategy({ hasContent, onOpen, onClear })
-      }
-      // renderTrigger={(onOpen) => {
-      //   if (hasContent) {
-      //     return (
-      //       <ButtonGroup>
-      //         <Button onClick={onOpen} icon={<EditOutlined />}>
-      //           Edit
-      //         </Button>
-      //         <Button onClick={onClear} icon={<DeleteOutlined />}>
-      //           Clear
-      //         </Button>
-      //       </ButtonGroup>
-      //     );
-      //   }
-
-      //   return (
-      //     <Button onClick={onOpen} icon={<FileAddOutlined />}>
-      //       Create
-      //     </Button>
-      //   );
-      // }}
+      renderTriggerStrategy={function setStrategy(onOpen) {
+        return editorStrategy({ hasContent, onOpen, onClear });
+      }}
     >
       {children}
-    </GeneralModal>
+    </Modal>
   );
 };
 
