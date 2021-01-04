@@ -1,24 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Editor from "./editor/Editor";
+import EditorModal from "./modal/EditorModal";
+import "./others/index.css";
+import RoleButton from "./others/RoleButton";
 
 function App() {
+  const [content, setContent] = useState("我是需要被編輯的內容");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <RoleButton />
+
+      <EditorModal hasContent={!!content.length} onClear={() => setContent("")}>
+        <Editor content={content} setContent={setContent} />
+      </EditorModal>
     </div>
   );
 }
