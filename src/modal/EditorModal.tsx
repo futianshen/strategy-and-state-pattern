@@ -16,7 +16,7 @@ const editorStrategy: (props: {
   if (hasContent) {
     return (
       <ButtonGroup>
-        <Button onClick={onOpen} icon={<EditOutlined />}>
+        <Button onClick={onOpen} icon={<EditOutlined />} className="mr-2">
           Edit
         </Button>
         <Button onClick={onClear} icon={<DeleteOutlined />}>
@@ -39,6 +39,7 @@ const EditorModal: React.FC<{
 }> = ({ hasContent, onClear, children }) => {
   return (
     <GeneralModal
+      centered
       renderTrigger={(onOpen) =>
         editorStrategy({ hasContent, onOpen, onClear })
       }
